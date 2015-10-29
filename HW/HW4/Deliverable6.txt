@@ -1,0 +1,5 @@
+The code above shows the signal from "enable" shifted left
+by the number specified in binary in "address". This works
+as a decoder, because the remaining spaces are filled by 
+zeros. So, if "enable" is 1, it will be in whatever position
+is specified by "address." It if is 0, then the output is zero. 
