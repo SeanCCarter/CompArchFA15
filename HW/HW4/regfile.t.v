@@ -2,6 +2,7 @@
 // Test harness validates hw4testbench by connecting it to various functional 
 // or broken register files, and verifying that it correctly identifies each
 //------------------------------------------------------------------------------
+` include "regfile.v"
 
 module hw4testbenchharness();
 
@@ -120,7 +121,7 @@ output reg		Clk
   // Verify expectations and report test result
   if((ReadData1 != 42) || (ReadData2 != 42)) begin
     dutpassed = 0;	// Set to 'false' on failure
-    $display("Test Case 1 Failed");
+    $display("Test Case 1 Failed - Read incorrect value");
   end
 
   // Test Case 2: 
@@ -135,9 +136,76 @@ output reg		Clk
 
   if((ReadData1 != 15) || (ReadData2 != 15)) begin
     dutpassed = 0;
-    $display("Test Case 2 Failed");
+    $display("Test Case 2 Failed - Read incorrect value");
   end
 
+  // Test Case 3: No-Zero: 
+  WriteRegister = 5'd0;
+  WriteData = 32'd15;
+  RegWrite = 1;
+  ReadRegister1 = 5'd0;
+  ReadRegister2 = 5'd0;
+  #5 Clk=1; #5 Clk=0;
+
+  if((ReadData1 != 0) || (ReadData2 == 15)) begin
+    dutpassed = 0;
+    $display("Test Case 3 Failed: Impropper Zero Register");
+  end
+
+  // Test Case 4: Write-Enable: 
+  //   Write '18' to register 3, verify with Read Ports 1 and 2
+  WriteRegister = 5'd3;
+  WriteData = 32'd18;
+  RegWrite = 1;
+  ReadRegister1 = 5'd3;
+  ReadRegister2 = 5'd3;
+  #5 Clk=1; #5 Clk=0;
+  WriteRegister = 5'd3;
+  WriteData = 32'd42;
+  RegWrite = 0;
+  ReadRegister1 = 5'd3;
+  ReadRegister2 = 5'd3;
+  #5 Clk=1; #5 Clk=0;
+
+  if((ReadData1 != 18) || (ReadData2 == 42)) begin
+    dutpassed = 0;
+    $display("Test Case 4 Failed: Register write enable broken");
+  end
+
+  // Test Case 5: Broken Decoder: 
+  WriteRegister = 5'd5;
+  WriteData = 32'd18;
+  RegWrite = 1;
+  ReadRegister1 = 5'd3;
+  ReadRegister2 = 5'd3;
+  #5 Clk=1; #5 Clk=0;
+
+  WriteRegister = 5'd6;
+  WriteData = 32'd30;
+  RegWrite = 1;
+  ReadRegister1 = 5'd5;
+  ReadRegister2 = 5'd5;
+  #5 Clk=1; #5 Clk=0;
+
+  if((ReadData1 != 18) || (ReadData2 == 30)) begin
+    dutpassed = 0;
+    $display("Test Case 5 Failed: Possible broken decoder");
+  end
+
+  //Test Case 6: ReadRegister2 is broken
+  //Look, this is just WAY too specific
+  //This will fail the initial tests as well
+  WriteRegister = 5'd10;
+  WriteData = 32'd20;
+  RegWrite = 1;
+  ReadRegister1 = 5'd3;
+  ReadRegister2 = 5'd3;
+  #5 Clk=1; #5 Clk=0;
+ 
+  if (ReadData2 == 17) begin
+    dutpassed = 0;
+    $display("Test Case 6 Failed: ReadRegister2 unexpectedly returned 17.");
+  end
 
   // All done!  Wait a moment and signal test completion.
   #5

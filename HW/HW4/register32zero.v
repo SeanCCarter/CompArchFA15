@@ -7,7 +7,7 @@ input       clk
 );
     always @(posedge clk) begin
         if(wrenable) begin
-            q[0:31] = 0;
+            q[0:31] = 32'b00000000000000000000000000000000;
         end
     end
 endmodule
