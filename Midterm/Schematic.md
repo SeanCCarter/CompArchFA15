@@ -19,7 +19,7 @@ The most abstract version of the input conditioner actually looks like this:
 
 ![Input Conditioner Schematic](./images/Input-Conditioner.png)
 
-This system is a 6 bit counter, that only starts counting when its internal enable signal is high. Since the output to the conditioner is XORed with the input to create the enable signal, this system doesn't start counting untill the input is different from its output - and since the most signifigant bit of the counter is wired to the clock on a flip-flop that holds the output state, its output only changes once the debouncing period is over (when the system counts to 100000b).
+This system is a 6 bit counter, that only starts counting when its internal enable signal is high. Since the output to the conditioner is XORed with the input to create the enable signal, this system doesn't start counting untill the input is different from its output - and since the most signifigant bit of the counter is wired to the clock on a flip-flop that holds the output state, its output only changes once the debouncing period is over (when the system counts to 100000b). It also forcibly resets all of the counters if the signal bounces.
 
 - Inputs: IN (a noisy signal), CLK
 - Outputs: OUT (a no-noisy signal)
