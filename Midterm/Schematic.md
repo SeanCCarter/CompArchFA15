@@ -87,7 +87,7 @@ Each blinker counter is also similar to the conditioner counters:
 
 ![Counter](./images/Blinker-Counter.png)
 
-The counter changes the state of Q when its input is high, and its other output signal is high when both its own state and in the input are high.
+The counter changes the state of Q when its input is high, and its other output signal is high when both its own state and the input are high.
 
 - Inputs: IN, CLK
 - Outputs: Q, OUT

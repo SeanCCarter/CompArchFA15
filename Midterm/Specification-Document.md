@@ -18,6 +18,12 @@ These can be rearranged into the finite state machine shown below. If the light 
 
 ![The State Machine](./Finite-State-Machine.png)
 
+If you wish, you could also think of it from a timing perspecitve, with the speed that a light is turning on and off.
+
+![Timing](./LED-States.png)
+
+When it's off, it's off. When it's on, it's on. When it's blinking, it slowly cycles between the two, and when it's dim, it cycles between the two at the system clock speed (represented by the Dim state in the FSM)
+
 # Relevant Dimentions
 
 - The Blinker blinks at 2 Hz
