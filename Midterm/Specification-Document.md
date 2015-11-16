@@ -16,11 +16,11 @@ The bike-light, as mentioned above, can toggle between multiple modes. Those mod
 
 These can be rearranged into the finite state machine shown below. If the light is off, it can only turn on. If it is on, it can start blinking. However, once it's blinking, the light can be on or off within that cycle - this on/off pair makes more sense as a second pair of states, because they can both lead to the dim state, while the *on* and *off* states cannot. Finally, the dim light can only turn off.
 
-![The State Machine](./Finite-State-Machine.png)
+![The State Machine](./images/Finite-State-Machine.png)
 
 If you wish, you could also think of it from a timing perspecitve, with the speed that a light is turning on and off.
 
-![Timing](./LED-States.png)
+![Timing](./images/LED-States.png)
 
 When it's off, it's off. When it's on, it's on. When it's blinking, it slowly cycles between the two, and when it's dim, it cycles between the two at the system clock speed (represented by the Dim state in the FSM)
 
