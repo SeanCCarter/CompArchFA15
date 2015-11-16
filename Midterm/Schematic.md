@@ -4,13 +4,13 @@ These are the breakdowns of each component used in the creation of the LED contr
 
 | Gates                | Cost   |
 |----------------------|--------|
-| Input Conditioner    |   173  |
+| Input Conditioner    |   113  |
 | 4-Stage Ring Counter | 21*4-1 |
-| Blinker              |   312  |
+| Blinker              |   182  |
 | Dimmer               |   17   |
 | 3-Input OR           |    4   |
 | System Clock         |    2   |
-Total Cost: 591
+Total Cost: 401
 
 
 # Input Conditioner
@@ -26,11 +26,11 @@ This system is a 6 bit counter, that only starts counting when its internal enab
 
 | Gates         | Cost |
 |---------------|------|
-| 6 Counters    | 26*6 |
+| 6 Counters    | 16*6 |
 | 1 D Flip-Flop |  13  |
 | 1 2-Input XOR |   3  |
 | 1 Inverter    |   1  |
-Total Cost: 173
+Total Cost: 113
 
 
 Each of those counters is a small self contained module:
@@ -44,9 +44,9 @@ The counter counts up if its input is high, outtputs high if its own internal st
 
 | Gates          | Cost |
 |----------------|------|
-| 2 JK Flip-Flop |  20  |
+| 1 JK Flip-Flop |  10  |
 | 2 2-Input AND  |   6  |
-Total Cost: 26
+Total Cost: 16
 
 
 Finally, the bottom of the input conditioner is a J-K flip-flop:
@@ -77,10 +77,10 @@ This blinker works almost exactly the same way that the input counditioner does,
 
 | Gates          | Cost |
 |----------------|------|
-| 13 Counters    | 23*6 |
+| 13 Counters    | 13*13|
 | 1 JK Flip-Flop |  10  |
 | 1 2-Input AND  |   3  |
-Total Cost: 312
+Total Cost: 182
 
 
 Each blinker counter is also similar to the conditioner counters:
@@ -94,9 +94,9 @@ The counter changes the state of Q when its input is high, and its other output 
 
 | Gates          | Cost |
 |----------------|------|
-| 2 JK Flip-Flop |  20  |
+| 1 JK Flip-Flop |  10  |
 | 1 2-Input AND  |   3  |
-Total Cost: 23
+Total Cost: 13
 
 The J-K flip-flop has already been described.
 
